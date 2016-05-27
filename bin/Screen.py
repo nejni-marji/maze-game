@@ -28,3 +28,11 @@ class Screen():
                 )
     def update(self, x, y):
         self.draw(self.board[x][y].attr['icon'], x, y)
+    def start_player(self, player):
+        self.entity_list = [player]
+        return self.entity_list[0]
+    def tick(self):
+        for i in self.entity_list:
+            self.update(*i.pos)
+            self.draw(i.body, *i.pos)
+            self.game.refresh()

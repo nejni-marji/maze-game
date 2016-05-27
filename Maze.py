@@ -31,9 +31,14 @@ args = parser.parse_args()
 
 from bin.Map import Map
 from bin.Screen import Screen
+from bin.Entity import Entity
 
 Map = Map(args)
 Map.bws, Map.bhs = list(map(int, args.board_scale.split('x')))
 Screen = Screen(args, Map)
+spawn = list(map(int, Map.data['spawn']))
+player = Entity(Map.board, spawn, 'X')
+Screen.player = Screen.start_player(player)
+Screen.tick()
 Screen.msg_box.getch()
 curses.endwin()
