@@ -17,13 +17,15 @@ class Screen():
         for x in range(self.bw):
             for y in range(self.bh):
                 self.update(x, y)
-    def render(self, icon, x, y):
+    def render_slow(self, icon, x, y):
         for height in range(self.bhs):
             self.game.hline(
                 y * self.bhs + height,
                 x * self.bws,
                 icon, self.bws
                 )
+    def render(self, icon, x, y):
+        self.render_slow(icon, x, y):
         self.game.refresh()
     def update(self, x, y):
         self.render(self.board[x][y].attr['icon'], x, y)
