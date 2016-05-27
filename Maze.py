@@ -33,7 +33,7 @@ from bin.Map import Map
 from bin.Screen import Screen
 
 Map = Map(args)
-Map.bws, Map.bhs = map(int, args.board_scale.split('x'))
+Map.bws, Map.bhs = list(map(int, args.board_scale.split('x')))
 Screen = Screen(args, Map)
 Screen.msg_box.getch()
 curses.endwin()
