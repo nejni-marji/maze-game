@@ -20,6 +20,9 @@ class Screen():
                 self.update(x, y)
                 self.game.refresh()
         self.parse_key_file('key_maps/{}'.format(args.key_file))
+        spawn = list(map(int, Map.data['spawn']))
+        self.player = Entity(Map.board, spawn, 'X')
+        self.entity_list = [self.player]
     def parse_key_file(self, key_file):
         self.actions, keys = {}, []
         f = open(key_file, 'r').read()
@@ -43,9 +46,6 @@ class Screen():
                 )
     def update(self, x, y):
         self.draw(self.board[x][y].attr['icon'], x, y)
-    def start_player(self, player):
-        self.entity_list = [player]
-        return self.entity_list[0]
     def tick(self):
         for i in self.entity_list:
             self.update(*i.old_pos)
