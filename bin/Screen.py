@@ -33,6 +33,6 @@ class Screen():
         return self.entity_list[0]
     def tick(self):
         for i in self.entity_list:
-            self.update(*i.pos)
+            self.update(*i.old_pos)
             self.draw(i.body, *i.pos)
             self.game.refresh()
