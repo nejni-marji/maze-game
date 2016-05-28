@@ -20,7 +20,7 @@ class Screen():
             for y in range(self.bh):
                 self.update(x, y)
                 self.game.refresh()
-        self.parse_key_file('key_maps/{}'.format(args.key_file))
+        self.parse_key_file('key_files/{}'.format(args.key_file))
         spawn = list(map(int, Map.data['spawn']))
         self.player = Entity(Map.board, spawn, 'X')
         self.entity_list = [self.player]
