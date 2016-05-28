@@ -10,7 +10,7 @@ class Map():
         self.load_board()
     def parse_map_file(self, map_file):
         self.data, data = {}, []
-        f = open(map_file, 'r').read()
+        f = open('map_files/{}'.format(map_file), 'r').read()
         for i in f.split('\n::'): # :: delimits major sections in map_file
             data.append(i)
         data.pop(len(data)-1) # remove newline from EOF
