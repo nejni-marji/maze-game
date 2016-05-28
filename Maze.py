@@ -22,6 +22,12 @@ parser.add_argument(
     type = str,
 )
 parser.add_argument(
+    '-k', '--key-file',
+    action = 'store',
+    default = 'qwerty',
+    type = str,
+)
+parser.add_argument(
     '--board-scale',
     action = 'store',
     default = '3x2',

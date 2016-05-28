@@ -19,6 +19,19 @@ class Screen():
             for y in range(self.bh):
                 self.update(x, y)
                 self.game.refresh()
+        self.parse_key_file('key_maps/{}'.format(args.key_file))
+    def parse_key_file(self, key_file):
+        self.keys, keys = {}, []
+        f = open(key_file, 'r').read()
+        for i in f.split('\n'): # \n delimits major sections in key_file
+            keys.append(i)
+        keys.pop(len(keys)-1) # remove newline from EOF
+        # process the rest of the key_file
+        for i in keys:
+            value = i.split(':') # : delimits minor sections in map_file
+            key = value.pop(0)
+            self.keys[key] = value[0]
+        assert 'quit' in self.keys
     def draw(self, icon, x, y):
         for height in range(self.bhs):
             self.game.hline(
