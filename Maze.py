@@ -43,5 +43,6 @@ Map = Map(args)
 Map.bws, Map.bhs = list(map(int, args.board_scale.split('x')))
 Screen = Screen(args, Map)
 Screen.tick()
-Screen.msg_box.getch()
-curses.endwin()
+while True:
+    Screen.get_input()
+    Screen.tick()

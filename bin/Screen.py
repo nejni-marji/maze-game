@@ -15,6 +15,7 @@ class Screen():
         self.msg_box = curses.newwin(7, self.bw * self.bws, self.bh * self.bhs, 0)
         self.timeout      = args.timeout
         self.game.timeout(  args.timeout)
+        self.game.nodelay(0)
         for x in range(self.bw):
             for y in range(self.bh):
                 self.update(x, y)
@@ -51,3 +52,12 @@ class Screen():
             self.update(*i.old_pos)
             self.draw(i.body, *i.pos)
             self.game.refresh()
+    def get_input(self):
+        key = self.game.getkey()
+        if key in self.keys:
+            action = self.keys[key]
+        else:
+            action = None
+        if action == 'quit':
+            curses.endwin()
+            exit()
