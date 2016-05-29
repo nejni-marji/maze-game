@@ -61,3 +61,7 @@ class Screen():
         if action == 'quit':
             curses.endwin()
             exit()
+        if action == 'left':
+            self.player.move(0, -1)
+        if action == 'right':
+            self.player.move(0, +1)
