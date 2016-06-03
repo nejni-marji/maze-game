@@ -45,7 +45,6 @@ try:
     Screen = Screen(args, Map)
     Screen.tick()
     while True:
-        Screen.get_input()
         Screen.tick()
 finally:
     curses.endwin()

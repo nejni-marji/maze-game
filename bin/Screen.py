@@ -48,9 +48,6 @@ class Screen():
     def update(self, x, y):
         self.draw(self.board[x][y].attr['icon'], x, y)
     def tick(self):
-        for i in self.entity_list:
-            self.game.refresh()
-    def get_input(self):
         key = self.game.getkey()
         if key in self.keys:
             action = self.keys[key]
@@ -63,3 +60,5 @@ class Screen():
             self.player.move(0, -1)
         if action == 'right':
             self.player.move(0, +1)
+        for i in self.entity_list:
+            self.game.refresh()
