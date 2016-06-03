@@ -39,10 +39,13 @@ from bin.Map import Map
 from bin.Screen import Screen
 from bin.Entity import Entity
 
-Map = Map(args)
-Map.bws, Map.bhs = list(map(int, args.board_scale.split('x')))
-Screen = Screen(args, Map)
-Screen.tick()
-while True:
-    Screen.get_input()
+try:
+    Map = Map(args)
+    Map.bws, Map.bhs = list(map(int, args.board_scale.split('x')))
+    Screen = Screen(args, Map)
     Screen.tick()
+    while True:
+        Screen.get_input()
+        Screen.tick()
+finally:
+    curses.endwin()
