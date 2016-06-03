@@ -59,7 +59,7 @@ class Screen():
         else:
             action = ''
         def rest():
-            self.player.move(0, 0)
+            pass
         def quit():
             curses.endwin()
             exit()
