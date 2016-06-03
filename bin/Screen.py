@@ -24,6 +24,8 @@ class Screen():
         spawn = list(map(int, Map.data['spawn']))
         self.player = Entity(self, spawn, 'X')
         self.entity_list = [self.player]
+        for i in self.entity_list:
+            i.move(0, 0)
     def parse_key_file(self, key_file):
         self.actions, keys = {}, []
         f = open(key_file, 'r').read()
