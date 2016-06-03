@@ -22,7 +22,7 @@ class Screen():
                 self.game.refresh()
         self.parse_key_file('key_files/{}'.format(args.key_file))
         spawn = list(map(int, Map.data['spawn']))
-        self.player = Entity(Map.board, spawn, 'X')
+        self.player = Entity(self, spawn, 'X')
         self.entity_list = [self.player]
     def parse_key_file(self, key_file):
         self.actions, keys = {}, []
@@ -49,8 +49,6 @@ class Screen():
         self.draw(self.board[x][y].attr['icon'], x, y)
     def tick(self):
         for i in self.entity_list:
-            self.update(*i.old_pos)
-            self.draw(i.body, *i.pos)
             self.game.refresh()
     def get_input(self):
         key = self.game.getkey()

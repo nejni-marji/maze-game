@@ -4,9 +4,10 @@
 ##
 from copy import copy
 class Entity():
-    def __init__(self, board, pos, body):
+    def __init__(self, Screen, pos, body):
         self.old_pos, self.pos, self.body = pos, pos, body
-        self.board = board
+        self.Screen = Screen
+        self.board = Screen.board
     def get_tile(self, axis, direction):
         tile_pos = copy(self.pos)
         tile_pos[axis] += direction
@@ -17,3 +18,5 @@ class Entity():
         if dest_tile.attr['solid'] != 'always':
             self.old_pos = self.pos
             self.pos = new_pos
+            self.Screen.update(*self.old_pos)
+            self.Screen.draw(self.body, *self.pos)
