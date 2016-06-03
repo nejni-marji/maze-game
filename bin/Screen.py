@@ -45,9 +45,11 @@ class Screen():
                 )
     def update(self, x, y):
         self.draw(self.board[x][y].attr['icon'], x, y)
-    def tick(self):
-        for i in self.entity_list:
-            self.game.refresh()
+    def tick(self, first_tick = False):
+        for entity in self.entity_list:
+            if first_tick:
+                self.draw(entity.body, *entity.pos)
+        self.game.refresh()
     def get_input(self, pseudo_key = False):
         if pseudo_key != False:
             key = pseudo_key
