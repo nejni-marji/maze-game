@@ -45,12 +45,7 @@ class Screen():
                 )
     def update(self, x, y):
         self.draw(self.board[x][y].attr['icon'], x, y)
-    def tick(self, first_tick = False):
-        for entity in self.entity_list:
-            if first_tick:
-                self.draw(entity.body, *entity.pos)
-        self.game.refresh()
-    def get_input(self, pseudo_key = False):
+    def tick(self, pseudo_key = False, first_tick = False):
         if pseudo_key != False:
             key = pseudo_key
         else:
@@ -78,3 +73,9 @@ class Screen():
             'left'  : left,
             'right' : right,
         }[action]()
+        # general entity loop
+        for entity in self.entity_list:
+            # rendering
+            if first_tick:
+                self.draw(entity.body, *entity.pos)
+        self.game.refresh()
