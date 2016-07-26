@@ -1,2 +1,8 @@
 This is a program I started writing to learn the curses library in Python 2.7.
 Since, it's sorta grown a little bit, I'm really not sure where it's headed.
+
+The file Maze.py is a rewrite of the original program, staticMaze.py, although
+it may lack some of the features from the original program at this time.
+
+The file staticMaze.py is old, crappy, and somewhat unstable. It does not run
+properly. It's only here for posterity's sake.
