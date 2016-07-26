@@ -43,7 +43,7 @@ try:
     Map = Map(args)
     Map.bws, Map.bhs = list(map(int, args.board_scale.split('x')))
     Screen = Screen(args, Map)
-    Screen.tick()
+    Screen.tick(pseudo_key = '', first_tick = True)
     while True:
         Screen.tick()
 finally:

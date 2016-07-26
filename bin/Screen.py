@@ -15,7 +15,6 @@ class Screen():
         self.msg_box = curses.newwin(7, self.bw * self.bws, self.bh * self.bhs, 0)
         self.timeout      = args.timeout
         self.game.timeout(  args.timeout)
-        self.game.nodelay(0)
         for x in range(self.bw):
             for y in range(self.bh):
                 self.update(x, y)
@@ -27,7 +26,7 @@ class Screen():
         for i in self.entity_list:
             i.move(0, 0)
     def parse_key_file(self, key_file):
-        self.actions, keys = {}, []
+        keys = []
         f = open(key_file, 'r').read()
         for i in f.split('\n'): # \n delimits major sections in key_file
             keys.append(i)
@@ -37,9 +36,8 @@ class Screen():
         for i in keys:
             key = i.split(':') # : delimits minor sections in map_file
             action, key = i.split(':') # : delimits minor sections in map_file
-            self.actions[action] = key
             self.keys[key] = action
-        assert 'quit' in self.actions
+        assert self.keys['q'] == 'quit'
     def draw(self, icon, x, y):
         for height in range(self.bhs):
             self.game.hline(
@@ -49,18 +47,37 @@ class Screen():
                 )
     def update(self, x, y):
         self.draw(self.board[x][y].attr['icon'], x, y)
-    def tick(self):
-        key = self.game.getkey()
+    def tick(self, pseudo_key = False, first_tick = False):
+        if pseudo_key != False:
+            key = pseudo_key
+        else:
+            try:
+                char = self.game.getch()
+                key = chr(char)
+            except:
+                key = ''
         if key in self.keys:
             action = self.keys[key]
         else:
-            action = None
-        if action == 'quit':
+            action = ''
+        def rest():
+            pass
+        def quit():
             curses.endwin()
             exit()
-        if action == 'left':
+        def left():
             self.player.move(0, -1)
-        if action == 'right':
+        def right():
             self.player.move(0, +1)
-        for i in self.entity_list:
-            self.game.refresh()
+        {
+            ''      : rest,
+            'quit'  : quit,
+            'left'  : left,
+            'right' : right,
+        }[action]()
+        # general entity loop
+        for entity in self.entity_list:
+            # rendering
+            if first_tick:
+                self.draw(entity.body, *entity.pos)
+        self.game.refresh()
